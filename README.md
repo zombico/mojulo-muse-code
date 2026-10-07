@@ -1,11 +1,13 @@
-# Mojulo for Muse Code — prototype
+# Mojulo for Muse Code
 
-Status: **prototype, built and verified 2026-10-06 in Muse's workspace.
-Not published, and nothing in Franz's repos was touched.** It is one more
-surface in the same pattern as the existing multi-surface adapter repo
-(`mojulo-chatgpt` already carries work-plugin / Codex / dot surfaces):
-the package teaches, a pinned bootstrap installs the tool locally, and
-execution never touches a hosted server — so the route costs $0.
+Status: **published 2026-10-06 at
+[zombico/mojulo-muse-code](https://github.com/zombico/mojulo-muse-code)**
+(public), built and verified in Muse's workspace; nothing in Franz's
+other repos was touched. It is one more surface in the same pattern as
+the existing multi-surface adapter repo (`mojulo-chatgpt` already
+carries work-plugin / Codex / dot surfaces): the package teaches, a
+pinned bootstrap installs the tool locally, and execution never
+touches a hosted server — so the route costs $0.
 
 ## Layout
 
@@ -60,13 +62,27 @@ With `MUSE_EXPERIMENTAL_PLUGINS=1`:
    died. The bootstrap now skips `npm init` — `npm install --prefix`
    creates `package.json` itself. It also guards Node >= 22.14 and
    verifies the installed version matches the 3.0.0 pin.
+3. **The freeze is per-machine and keyed by name+version.** A machine
+   that previously installed a *local dev copy* of this plugin can
+   refuse the marketplace install with the same `plugin-cache-invalid`
+   error: the earlier install pins the package digest for
+   `mojulo@3.0.0`, and the published package hashes differently. This
+   was confirmed the hard way — the git-URL install failed on the
+   development machine's pre-used Muse home, then succeeded first try
+   in a clean home (add → install → `inspect` active, capability
+   `plugin:mojulo:mojulo`, manifest sha matches the original
+   validation). Fresh users are unaffected; on a dev machine, clear
+   the stale local plugin state or bump the version.
+
+## Verified since publication
+
+- **Git-URL marketplace flow (2026-10-06, clean Muse home):**
+  `muse plugins marketplace add mojulo https://github.com/zombico/mojulo-muse-code`
+  → `muse plugins install mojulo@mojulo` → `inspect` active. The
+  published tree is byte-identical to the validated prototype.
 
 ## Still Franz's to run
 
-- **Publish the repo** (his GitHub — e.g. a `muse-code/` surface inside
-  `mojulo-chatgpt`, or its own repo), then the same flow with a git
-  source: `muse plugins marketplace add mojulo <repo-url> --json`.
-  Only the local-dir source is verified so far.
 - **One live session.** Install/validate/inspect need no sign-in, but a
   real Muse Code session does (Meta account). The end-to-end check is:
   start a session, ask "Use mojulo to mint a desk organizer and export
