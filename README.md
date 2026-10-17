@@ -76,6 +76,19 @@ With `MUSE_EXPERIMENTAL_PLUGINS=1`:
 
 ## Verified since publication
 
+- **Pin bump to mojulo@3.1.1 (2026-10-16, Muse Code 1.4.10):**
+  bootstrap, manifest version and skill bumped 3.0.0 → 3.1.1; the
+  skill's working loop now describes the 3.1.x pack surface (spine +
+  `pack_*` tools). Re-verified end to end: `validate` clean (0
+  diagnostics, compatibility "full"); local install in a clean Muse
+  home → `inspect` active, capability `plugin:mojulo:mojulo`, skill
+  activation "on"; bootstrap from the installed package installed
+  mojulo@3.1.1 (130 packages), idempotent on re-run, and `orient` +
+  `pack_object mint_solid` (two-part pawn, `sk_nx5605uwa2`) +
+  `export_model` GLB all ran through the pinned binary (versions
+  minted/rendered 3.1.1). Git-URL marketplace flow re-verified in a
+  second clean home: add → install → `inspect` active, manifest sha
+  `56de7070…` matches the local validation.
 - **Git-URL marketplace flow (2026-10-06, clean Muse home):**
   `muse plugins marketplace add mojulo https://github.com/zombico/mojulo-muse-code`
   → `muse plugins install mojulo@mojulo` → `inspect` active. The
