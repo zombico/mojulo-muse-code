@@ -16,7 +16,7 @@ touches a hosted server — so the route costs $0.
 ├── .agents/plugins/marketplace.json   # catalog Muse Code reads on `marketplace add`
 ├── .muse-plugin/plugin.json           # native Muse manifest (schemaVersion 1)
 ├── skills/mojulo/SKILL.md             # the skill the manifest points at
-└── scripts/bootstrap.sh               # pinned install: mojulo@3.0.0 → ./.mojulo-runtime
+└── scripts/bootstrap.sh               # pinned install: mojulo@3.1.1 → ./.mojulo-runtime
 ```
 
 The plugin lives at the repo root, so the catalog entry's source path is
@@ -61,12 +61,12 @@ With `MUSE_EXPERIMENTAL_PLUGINS=1`:
    (a package name may not start with a dot) and the install silently
    died. The bootstrap now skips `npm init` — `npm install --prefix`
    creates `package.json` itself. It also guards Node >= 22.14 and
-   verifies the installed version matches the 3.0.0 pin.
+   verifies the installed version matches the pin.
 3. **The freeze is per-machine and keyed by name+version.** A machine
    that previously installed a *local dev copy* of this plugin can
    refuse the marketplace install with the same `plugin-cache-invalid`
    error: the earlier install pins the package digest for
-   `mojulo@3.0.0`, and the published package hashes differently. This
+   that plugin version, and the published package hashes differently. This
    was confirmed the hard way — the git-URL install failed on the
    development machine's pre-used Muse home, then succeeded first try
    in a clean home (add → install → `inspect` active, capability
@@ -98,7 +98,7 @@ With `MUSE_EXPERIMENTAL_PLUGINS=1`:
    `.agents` catalog (the one Browse documents Muse accepting), so
    nothing shadows it. If a Claude/Codex catalog is added later for a
    multi-surface repo, re-check precedence before assuming both are read.
-2. **Version field.** The manifest version is `3.0.0` to match the
+2. **Version field.** The manifest version is `3.1.1` to match the
    pinned mojulo release; the validator accepted it as-is. If the
    package gets its own release cadence, split the two numbers and keep
    the pin only in `bootstrap.sh` and the skill.
@@ -114,7 +114,7 @@ With `MUSE_EXPERIMENTAL_PLUGINS=1`:
 5. **Discovery is still by URL.** There is no central Meta directory of
    marketplaces; "being on it" means this repo exists in the right
    format and users add it. Discovery runs through mojulo.ai / GitHub.
-6. **No `muse-code` host profile in mojulo 3.0.0.** `orient` lists
+6. **No `muse-code` host profile in mojulo 3.1.1.** `orient` lists
    claude-code / codex / desktop / grok / hermes / grok-chat / chatgpt /
    muse. The skill works without `MOJULO_HOST` (generic wire); a future
    mojulo release could add a profile so exports name Muse Code's

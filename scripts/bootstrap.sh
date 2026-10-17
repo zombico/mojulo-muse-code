@@ -6,7 +6,7 @@
 set -eu
 
 RUNTIME_DIR="${MOJULO_RUNTIME_DIR:-.mojulo-runtime}"
-MOJULO_VERSION="3.0.0"
+MOJULO_VERSION="3.1.1"
 BIN="$RUNTIME_DIR/node_modules/.bin/mojulo"
 
 command -v node >/dev/null 2>&1 || { echo "Mojulo requires Node >=22.14; node was not found." >&2; exit 2; }

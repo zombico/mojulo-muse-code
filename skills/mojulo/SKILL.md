@@ -19,7 +19,7 @@ for.
 # Run the bootstrap packaged with this plugin — scripts/bootstrap.sh at
 # the plugin package root. It installs into the CURRENT workspace:
 sh <plugin-root>/scripts/bootstrap.sh
-# installs the pinned mojulo@3.0.0 into ./.mojulo-runtime
+# installs the pinned mojulo@3.1.1 into ./.mojulo-runtime
 export MOJULO_BIN="$PWD/.mojulo-runtime/node_modules/.bin/mojulo"
 "$MOJULO_BIN" orient
 ```
@@ -31,10 +31,16 @@ new session, before minting anything.
 
 1. **Discover before calling.** The CLI is the discovery surface:
    `"$MOJULO_BIN" tools`, `"$MOJULO_BIN" packs`, and
-   `"$MOJULO_BIN" help <tool>` describe the current surface. The three
-   dispatchers are `mint_solid`, `create_view`, and `compose_world`.
-2. **Call tools as JSON.**
-   `"$MOJULO_BIN" call <tool> --json '{...}'`
+   `"$MOJULO_BIN" help <tool>` describe the current surface. In 3.1.x
+   the surface is a small spine (`forward_context` is the routing
+   index) plus tool packs — `pack_object`, `pack_world`,
+   `pack_building`, `pack_game`, `pack_view`, and more. Open a pack
+   with `"$MOJULO_BIN" <pack_id>` to get its members and manuals.
+2. **Call tools as JSON.** Spine tools run directly:
+   `"$MOJULO_BIN" call <tool> --json '{...}'`; pack members run
+   through their pack:
+   `"$MOJULO_BIN" pack_object mint_solid --json '{...}'`
+   (the plain `call` form also reaches pack members on the CLI).
 3. **Keep the recipe.** Every mint is backed by a saved recipe. To change
    a model, edit the recipe and re-mint — do not rebuild from scratch
    when the user asked for a small change ("make the middle slot wider"
